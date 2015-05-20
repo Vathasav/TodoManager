@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".ToDoManagerActivity">
+    <item android:id="@+id/addNewToDo" android:icon="@drawable/add_notes"
+         android:title="add item"
+        android:showAsAction="always"
+        android:text="@string/add_new_todo_item_string"
+         />
+
+</menu>
