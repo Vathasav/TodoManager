@@ -3,6 +3,7 @@ package course.labs.todomanager;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -11,6 +12,10 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -43,9 +48,12 @@ public class AddToDoActivity extends Activity {
 	private RadioButton mDefaultStatusButton;
 	private RadioButton mDefaultPriorityButton;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
 
 
 		setContentView(R.layout.add_todo);
@@ -63,12 +71,68 @@ public class AddToDoActivity extends Activity {
 
 		setDefaultDateTime();
 
+        ActionBar actionBar = getActionBar();
+        View mActionBarView = getLayoutInflater().inflate(R.layout.action_bar, null);
+        actionBar.setCustomView(mActionBarView);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        if(intent.getExtras() != null ) {
+
+            if (intent.getStringExtra(ToDoItem.TITLE) != null)
+                mTitleText.setText(intent.getStringExtra(ToDoItem.TITLE));
+
+
+            if (intent.getExtras().get(ToDoItem.PRIORITY) != null) {
+                Priority priority = (Priority) intent.getExtras().get(ToDoItem.PRIORITY);
+
+                setPriority(priority);
+
+
+            }
+
+
+            if (intent.getExtras().get(ToDoItem.STATUS) != null) {
+                Status status = (Status) intent.getExtras().get(ToDoItem.STATUS);
+
+                setStatus(status);
+              //  mStatusRadioGroup.check(status.ordinal());
+
+            }
+
+            if (intent.getExtras().get(ToDoItem.DATE) != null) {
+
+                Date date = (Date) intent.getExtras().get(ToDoItem.DATE);
+
+                mDate = date;
+
+                Calendar c = Calendar.getInstance();
+                c.setTime(mDate);
+
+                setDateString(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
+                        c.get(Calendar.DAY_OF_MONTH));
+
+                dateView.setText(dateString);
+
+                setTimeString(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),
+                        c.get(Calendar.MILLISECOND));
+
+                timeView.setText(timeString);
+
+            }
+        }
+
+
+        //start action mode
+        //mActionMode = startActionMode(mActionModeCallback);
+
 		// OnClickListener for the Date button, calls showDatePickerDialog() to
 		// show
 		// the Date dialog
 
-		final Button datePickerButton = (Button) findViewById(R.id.date_picker_button);
-		datePickerButton.setOnClickListener(new OnClickListener() {
+
+
+		//final Button datePickerButton = (Button) findViewById(R.id.date_picker_button);
+        dateView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -79,8 +143,8 @@ public class AddToDoActivity extends Activity {
 		// OnClickListener for the Time button, calls showTimePickerDialog() to
 		// show the Time Dialog
 
-		final Button timePickerButton = (Button) findViewById(R.id.time_picker_button);
-		timePickerButton.setOnClickListener(new OnClickListener() {
+		//final Button timePickerButton = (Button) findViewById(R.id.time_picker_button);
+        timeView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -90,7 +154,7 @@ public class AddToDoActivity extends Activity {
 
 		// OnClickListener for the Cancel Button,
 
-		final Button cancelButton = (Button) findViewById(R.id.cancelButton);
+		final TextView cancelButton = (TextView) findViewById(R.id.cancel);
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -114,8 +178,8 @@ public class AddToDoActivity extends Activity {
 		});
 
 		// TODO - Set up OnClickListener for the Reset Button
-		final Button resetButton = (Button) findViewById(R.id.resetButton);
-		resetButton.setOnClickListener(new OnClickListener() {
+		final TextView resetButton = (TextView) findViewById(R.id.todo);
+	/*	resetButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG, "Entered resetButton.OnClickListener.onClick()");
@@ -132,10 +196,10 @@ public class AddToDoActivity extends Activity {
 
 			}
 		});
-
+*/
 		// Set up OnClickListener for the Submit Button
 
-		final Button submitButton = (Button) findViewById(R.id.submitButton);
+		final TextView submitButton = (TextView) findViewById(R.id.save);
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -170,7 +234,94 @@ public class AddToDoActivity extends Activity {
 		});
 	}
 
-	// Do not modify below this point.
+    private void setStatus(Status status) {
+
+        int id ;
+
+
+        switch (status) {
+            case DONE:
+                id = R.id.statusDone;
+                break;
+            case NOTDONE:
+                id = R.id.statusNotDone;
+                break;
+            default: {
+                id = R.id.statusNotDone;
+            }
+        }
+
+            mStatusRadioGroup.check(id);
+    }
+
+    private void setPriority(Priority priority) {
+
+        int priorityId;
+
+        switch (priority) {
+            case LOW:
+                priorityId = R.id.lowPriority;
+            break;
+            case MED:
+                priorityId = R.id.medPriority;
+                break;
+            case HIGH:
+                priorityId = R.id.highPriority;
+                break;
+            default: {
+                priorityId = R.id.medPriority;
+
+            }
+        }
+
+        mPriorityRadioGroup.check(priorityId);
+
+    }
+
+  /*  private ActionMode mActionMode = null;
+    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+
+        // Called when the action mode is created; startActionMode() was called
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            // Inflate a menu resource providing context menu items
+
+
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.contextual_actions, menu);
+            return true;
+        }
+
+        // Called each time the action mode is shown. Always called after onCreateActionMode, but
+        // may be called multiple times if the mode is invalidated.
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // Return false if nothing is done
+        }
+
+        // Called when the user selects a contextual menu item
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.deleteAll:
+                    deleteCurrentItem(mode);
+
+                    mode.finish(); // Action picked, so close the CAB
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        // Called when the user exits the action mode
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+        }
+    };
+*/
+
+    // Do not modify below this point.
 
 	private void setDefaultDateTime() {
 

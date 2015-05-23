@@ -129,6 +129,11 @@ public class ToDoListAdapter extends BaseAdapter {
 
                     statusView.setChecked(isChecked);
 
+                    if(isChecked == true)
+                        toDoItem.setStatus(ToDoItem.Status.DONE);
+                    else
+                        toDoItem.setStatus(ToDoItem.Status.NOTDONE);
+
 
 
                 }

@@ -22,7 +22,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import course.labs.todomanager.ToDoItem.Priority;
 import course.labs.todomanager.ToDoItem.Status;
@@ -30,6 +32,7 @@ import course.labs.todomanager.ToDoItem.Status;
 public class ToDoManagerActivity extends ListActivity {
 
 	private static final int ADD_TODO_ITEM_REQUEST = 0;
+    private static final int EDIT_TODO_ITEM_REQUEST = 1;
 	private static final String FILE_NAME = "TodoManagerActivityData.txt";
 	private static final String TAG = "Lab-UserInterface";
 
@@ -38,6 +41,8 @@ public class ToDoManagerActivity extends ListActivity {
 	private static final int MENU_DUMP = Menu.FIRST + 1;
 
 	ToDoListAdapter mAdapter;
+
+    private ToDoItem mEditedTodoItem;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,49 +53,47 @@ public class ToDoManagerActivity extends ListActivity {
 
 
 		// Create a new TodoListAdapter for this ListActivity's ListView
-		mAdapter = new ToDoListAdapter(getApplicationContext());
-
-		// Put divider between ToDoItems and FooterView
-		getListView().setFooterDividersEnabled(true);
-
-		// TODO - Inflate footerView for footer_view.xml file
-
-        LayoutInflater inflater = getLayoutInflater();
-
-
-
-        TextView footerView =  (TextView) inflater.inflate(R.layout.footer_view, null);
-
-
-
-
-		// NOTE: You can remove this block once you've implemented the assignment
-
-		// TODO - Add footerView to ListView
-
-
-
-
-    //    getListView().addFooterView(footerView);
-
-		
-		footerView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				Log.i(TAG,"Entered footerView.OnClickListener.onClick()");
-
-				//TODO - Implement OnClick().
-                Intent addIntent = new Intent(ToDoManagerActivity.this, AddToDoActivity.class);
-
-                startActivityForResult(addIntent,ADD_TODO_ITEM_REQUEST);
-			}
-		});
+		mAdapter = new ToDoListAdapter(ToDoManagerActivity.this);
 
 
 		// TODO - Attach the adapter to this ListActivity's ListView
-        getListView().setAdapter(mAdapter);
 
+        ListView listView = getListView();
+        listView.setAdapter(mAdapter);
+
+     /*   listView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ToDoManagerActivity.this, AddToDoActivity.class);
+
+                startActivity(myIntent);
+            }
+        });*/
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intent myIntent = new Intent(ToDoManagerActivity.this, AddToDoActivity.class);
+
+                mEditedTodoItem = (ToDoItem) mAdapter.getItem(i);
+
+
+                myIntent.putExtra(ToDoItem.TITLE, mEditedTodoItem.getTitle());
+                myIntent.putExtra(ToDoItem.PRIORITY, mEditedTodoItem.getPriority());
+                myIntent.putExtra(ToDoItem.STATUS, mEditedTodoItem.getStatus());
+                myIntent.putExtra(ToDoItem.DATE, mEditedTodoItem.getDate());
+
+
+                startActivityForResult(myIntent,EDIT_TODO_ITEM_REQUEST);
+
+            }
+        });
+
+
+
+        Log.i(TAG,"finished onCreate()");
 
         //setListAdapter(new ArrayAdapter<ToDoItem>(this,R.layout.todo_item,mAdapter));
 		
@@ -118,7 +121,32 @@ public class ToDoManagerActivity extends ListActivity {
 
         }
 
-	}
+        if(resultCode == RESULT_OK && requestCode == EDIT_TODO_ITEM_REQUEST){
+
+
+            if(data != null) {
+
+
+
+                mEditedTodoItem.setTitle(data.getStringExtra(ToDoItem.TITLE));
+                mEditedTodoItem.setPriority(Priority.valueOf(data.getStringExtra(ToDoItem.PRIORITY)));
+                mEditedTodoItem.setStatus( Status.valueOf(data.getStringExtra(ToDoItem.STATUS)));
+
+                try {
+                    mEditedTodoItem.setDate(ToDoItem.FORMAT.parse(data.getStringExtra(ToDoItem.DATE)));
+                } catch (ParseException e) {
+                    mEditedTodoItem.setDate(new Date());
+                }
+
+
+                mAdapter.notifyDataSetChanged();
+            }
+
+        }
+
+
+
+    }
 
 	// Do not modify below here
 

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:id="@+id/RelativeLayout1">
 
     <!-- Title -->
 
@@ -44,23 +45,29 @@
         android:id="@+id/statusGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/status"
         android:orientation="horizontal"
-        android:layout_marginTop="12dp" >
+        android:layout_below="@+id/status"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RadioButton
             android:id="@+id/statusDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/done_string" />
+            android:text="@string/done_string"
+            android:layout_alignTop="@+id/status"
+            android:layout_toLeftOf="@+id/time_picker_button"
+            android:layout_toStartOf="@+id/time_picker_button" />
 
         <RadioButton
             android:id="@+id/statusNotDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/not_done_string" />
+            android:text="@string/not_done_string"
+            android:layout_alignTop="@+id/statusDone"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RadioGroup>
 
     <!-- Priority -->
@@ -89,24 +96,32 @@
             android:id="@+id/lowPriority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/priority_low_string" />
+            android:text="@string/priority_low_string"
+            android:layout_alignTop="@+id/priority"
+            android:layout_toLeftOf="@+id/resetButton"
+            android:layout_toStartOf="@+id/resetButton" />
 
         <RadioButton
             android:id="@+id/medPriority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/priority_medium_string" />
+            android:text="@string/priority_medium_string"
+            android:layout_alignTop="@+id/lowPriority"
+            android:layout_alignLeft="@+id/statusDone"
+            android:layout_alignStart="@+id/statusDone" />
 
         <RadioButton
             android:id="@+id/highPriority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/priority_high_string" />
+            android:text="@string/priority_high_string"
+            android:layout_alignTop="@+id/medPriority"
+            android:layout_alignLeft="@+id/submitButton"
+            android:layout_alignStart="@+id/submitButton" />
     </RadioGroup>
 
     <!-- Time and Date -->
-
     <TextView
         android:id="@+id/time_and_date"
         android:layout_width="wrap_content"
@@ -124,59 +139,26 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/time_and_date"
         android:layout_marginTop="12dp"
-        android:text="@string/no_date_set_string" />
+        android:text="@string/no_date_set_string"
+        android:textSize="24dp"
+        android:layout_toLeftOf="@+id/time"
+        android:layout_toStartOf="@+id/time" />
 
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/time_and_date"
-        android:text="@string/no_time_set_string" />
 
-    <Button
-        android:id="@+id/date_picker_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/date"
-        android:text="@string/choose_date_string" />
+        android:text="@string/no_time_set_string"
+        android:layout_alignTop="@+id/date"
+        android:layout_toRightOf="@+id/time_and_date"
+        android:layout_toEndOf="@+id/time_and_date"
+        android:layout_marginLeft="76dp"
+        android:layout_marginStart="76dp"
+        android:textSize="24dp" />
 
-    <Button
-        android:id="@+id/time_picker_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/date_picker_button"
-        android:layout_below="@id/time"
-        android:text="@string/choose_time_string" />
+
 
     <!-- Buttons -->
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="25dp"
-        android:text="@string/cancel_string" />
-
-    <Button
-        android:id="@+id/resetButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/reset_string" />
-
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/submit_string"
-        />
 
 </RelativeLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/cancelButton"
+        android:title="cancel"
+        android:showAsAction="always"
+        android:text="@string/cancel_string"
+                />
+    <item android:id="@id/resetButton"
+        android:title="reset"
+        android:showAsAction="always"
+        android:text = "@string/reset_string" />
+
+</menu>
