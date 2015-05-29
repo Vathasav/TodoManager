@@ -1,6 +1,11 @@
 package course.labs.todomanager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -35,9 +40,30 @@ public class ToDoListAdapter extends BaseAdapter {
 	public void add(ToDoItem item) {
 
 		mItems.add(item);
+        Collections.sort(mItems,dateComparator);
+
 		notifyDataSetChanged();
 
 	}
+
+    Comparator<ToDoItem> dateComparator = new Comparator<ToDoItem>(){
+
+        public int compare(ToDoItem obj1, ToDoItem obj2){
+
+                int result = obj1.getDate().compareTo(obj2.getDate());
+
+
+                if (result > 0) {
+                    return -1;
+                } else if (result == 0){
+                    return 0;
+                }
+
+            return 1;
+
+        }
+
+    };
 
 	// Clears the list adapter of all items.
 

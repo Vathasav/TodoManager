@@ -12,7 +12,10 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.Date;
 
+import android.app.AlarmManager;
 import android.app.ListActivity;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -43,16 +46,19 @@ public class ToDoManagerActivity extends ListActivity {
 	ToDoListAdapter mAdapter;
 
     private ToDoItem mEditedTodoItem;
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
 
-	@Override
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 
+        alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
 
 
-		// Create a new TodoListAdapter for this ListActivity's ListView
+        // Create a new TodoListAdapter for this ListActivity's ListView
 		mAdapter = new ToDoListAdapter(ToDoManagerActivity.this);
 
 
@@ -60,6 +66,7 @@ public class ToDoManagerActivity extends ListActivity {
 
         ListView listView = getListView();
         listView.setAdapter(mAdapter);
+        listView.setDividerHeight(15);
 
      /*   listView.setOnClickListener(new OnClickListener() {
             @Override
@@ -117,12 +124,15 @@ public class ToDoManagerActivity extends ListActivity {
             if(data != null) {
                 ToDoItem  newTodoItem = new ToDoItem(data);
                 mAdapter.add(newTodoItem);
+                setAlarm(newTodoItem);
             }
 
         }
 
         if(resultCode == RESULT_OK && requestCode == EDIT_TODO_ITEM_REQUEST){
 
+
+            //TODO sort the array after editing list item
 
             if(data != null) {
 
@@ -140,6 +150,7 @@ public class ToDoManagerActivity extends ListActivity {
 
 
                 mAdapter.notifyDataSetChanged();
+                setAlarm(mEditedTodoItem);
             }
 
         }
@@ -148,7 +159,24 @@ public class ToDoManagerActivity extends ListActivity {
 
     }
 
-	// Do not modify below here
+    private void setAlarm(ToDoItem newTodoItem) {
+
+        Intent intent = new Intent(getApplicationContext(), TodoItemReminder.class);
+
+        intent.putExtra("Notify",newTodoItem.getTitle());
+
+
+        alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+
+        long timeToFire = newTodoItem.getDate().getTime() - System.currentTimeMillis();
+
+
+       alarmMgr.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+timeToFire,alarmIntent);
+
+
+    }
+
+    // Do not modify below here
 
 	@Override
 	public void onResume() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources >
-    <style name="MyTheme" parent="android:Theme.Light"> <!-- Or any other parent you want -->
+    <style name="MyTheme" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">#00BF00</item>
     </style>
 </resources>

@@ -155,30 +155,25 @@ public class AddToDoActivity extends Activity {
 		// OnClickListener for the Cancel Button,
 
 		final TextView cancelButton = (TextView) findViewById(R.id.cancel);
+
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
 				Log.i(TAG, "Entered cancelButton.OnClickListener.onClick()");
 
-				// TODO - Indicate result and finish
 
-
-
-                Toast.makeText(getApplicationContext(),
-                        "cancelled", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),
+//                        "cancelled", Toast.LENGTH_SHORT).show();
 
                 setResult(RESULT_CANCELED);
                 finish();
-
-
-
 
 			}
 		});
 
 		// TODO - Set up OnClickListener for the Reset Button
-		final TextView resetButton = (TextView) findViewById(R.id.todo);
+	//	final TextView resetButton = (TextView) findViewById(R.id.todo);
 	/*	resetButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

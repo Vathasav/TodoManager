@@ -19,37 +19,36 @@ public final class R {
         public static final int icon=0x7f020001;
     }
     public static final class id {
-        public static final int DateLabel=0x7f08001b;
-        public static final int PriorityLabel=0x7f080019;
-        public static final int RelativeLayout1=0x7f080003;
-        public static final int StatusLabel=0x7f080017;
-        public static final int TitleLabel=0x7f080004;
-        public static final int addNewToDo=0x7f08001e;
+        public static final int DateLabel=0x7f08001a;
+        public static final int PriorityLabel=0x7f080018;
+        public static final int RelativeLayout1=0x7f080002;
+        public static final int StatusLabel=0x7f080016;
+        public static final int TitleLabel=0x7f080003;
+        public static final int addNewToDo=0x7f08001d;
         public static final int cancel=0x7f080000;
-        public static final int cancelButton=0x7f08001d;
-        public static final int date=0x7f080013;
-        public static final int dateView=0x7f08001c;
-        public static final int footerView=0x7f080015;
-        public static final int highPriority=0x7f080010;
-        public static final int lowPriority=0x7f08000d;
-        public static final int medPriority=0x7f08000f;
-        public static final int priority=0x7f08000b;
-        public static final int priorityGroup=0x7f08000c;
-        public static final int priorityView=0x7f08001a;
-        public static final int resetButton=0x7f08000e;
-        public static final int save=0x7f080002;
-        public static final int status=0x7f080006;
-        public static final int statusCheckBox=0x7f080018;
-        public static final int statusDone=0x7f080008;
-        public static final int statusGroup=0x7f080007;
-        public static final int statusNotDone=0x7f08000a;
-        public static final int submitButton=0x7f080011;
-        public static final int time=0x7f080014;
-        public static final int time_and_date=0x7f080012;
-        public static final int time_picker_button=0x7f080009;
-        public static final int title=0x7f080005;
-        public static final int titleView=0x7f080016;
-        public static final int todo=0x7f080001;
+        public static final int cancelButton=0x7f08001c;
+        public static final int date=0x7f080012;
+        public static final int dateView=0x7f08001b;
+        public static final int footerView=0x7f080014;
+        public static final int highPriority=0x7f08000f;
+        public static final int lowPriority=0x7f08000c;
+        public static final int medPriority=0x7f08000e;
+        public static final int priority=0x7f08000a;
+        public static final int priorityGroup=0x7f08000b;
+        public static final int priorityView=0x7f080019;
+        public static final int resetButton=0x7f08000d;
+        public static final int save=0x7f080001;
+        public static final int status=0x7f080005;
+        public static final int statusCheckBox=0x7f080017;
+        public static final int statusDone=0x7f080007;
+        public static final int statusGroup=0x7f080006;
+        public static final int statusNotDone=0x7f080009;
+        public static final int submitButton=0x7f080010;
+        public static final int time=0x7f080013;
+        public static final int time_and_date=0x7f080011;
+        public static final int time_picker_button=0x7f080008;
+        public static final int title=0x7f080004;
+        public static final int titleView=0x7f080015;
     }
     public static final class layout {
         public static final int action_bar=0x7f030000;
@@ -84,8 +83,6 @@ public final class R {
         public static final int title_string=0x7f050013;
     }
     public static final class style {
-        /**  Or any other parent you want 
-         */
         public static final int MyTheme=0x7f060000;
     }
 }
