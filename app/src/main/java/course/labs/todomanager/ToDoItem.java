@@ -7,6 +7,10 @@ import java.util.Locale;
 
 import android.content.Intent;
 
+/***
+ *Describes a Todo item information and contains 
+ * getters and setters for updating item data
+ */
 public class ToDoItem {
 
 	public static final String ITEM_SEP = System.getProperty("line.separator");
