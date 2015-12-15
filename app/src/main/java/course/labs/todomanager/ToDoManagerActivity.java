@@ -32,10 +32,15 @@ import android.widget.TextView;
 import course.labs.todomanager.ToDoItem.Priority;
 import course.labs.todomanager.ToDoItem.Status;
 
+/***
+ *  Main Activity for managing todo items
+ *  saves existing items to local storage
+ *  loads existing items on application startup
+ */
 public class ToDoManagerActivity extends ListActivity {
 
 	private static final int ADD_TODO_ITEM_REQUEST = 0;
-    private static final int EDIT_TODO_ITEM_REQUEST = 1;
+        private static final int EDIT_TODO_ITEM_REQUEST = 1;
 	private static final String FILE_NAME = "TodoManagerActivityData.txt";
 	private static final String TAG = "Lab-UserInterface";
 
@@ -45,11 +50,11 @@ public class ToDoManagerActivity extends ListActivity {
 
 	ToDoListAdapter mAdapter;
 
-    private ToDoItem mEditedTodoItem;
-    private AlarmManager alarmMgr;
-    private PendingIntent alarmIntent;
+	private ToDoItem mEditedTodoItem;
+	private AlarmManager alarmMgr;
+	private PendingIntent alarmIntent;
 
-    @Override
+        @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -59,10 +64,10 @@ public class ToDoManagerActivity extends ListActivity {
 
 
         // Create a new TodoListAdapter for this ListActivity's ListView
-		mAdapter = new ToDoListAdapter(ToDoManagerActivity.this);
+	mAdapter = new ToDoListAdapter(ToDoManagerActivity.this);
 
 
-		// TODO - Attach the adapter to this ListActivity's ListView
+	// TODO - Attach the adapter to this ListActivity's ListView
 
         ListView listView = getListView();
         listView.setAdapter(mAdapter);
@@ -158,7 +163,8 @@ public class ToDoManagerActivity extends ListActivity {
 
 
     }
-
+    
+    // append alarm to a todo item
     private void setAlarm(ToDoItem newTodoItem) {
 
         Intent intent = new Intent(getApplicationContext(), TodoItemReminder.class);
