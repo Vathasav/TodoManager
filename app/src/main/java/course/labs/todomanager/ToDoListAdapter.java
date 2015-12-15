@@ -21,6 +21,9 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/***
+ * Adapter for creating list of todo items
+ */
 public class ToDoListAdapter extends BaseAdapter {
 
 	private final List<ToDoItem> mItems = new ArrayList<ToDoItem>();
@@ -40,7 +43,7 @@ public class ToDoListAdapter extends BaseAdapter {
 	public void add(ToDoItem item) {
 
 		mItems.add(item);
-        Collections.sort(mItems,dateComparator);
+		Collections.sort(mItems,dateComparator);
 
 		notifyDataSetChanged();
 
@@ -114,16 +117,16 @@ public class ToDoListAdapter extends BaseAdapter {
 
 
 		// TODO - Get the current ToDoItem
-		final ToDoItem toDoItem =  (ToDoItem) getItem(position);
+	     final ToDoItem toDoItem =  (ToDoItem) getItem(position);
 
-		// TODO - Inflate the View for this ToDoItem
-		// from todo_item.xml
+	    // TODO - Inflate the View for this ToDoItem
+	    // from todo_item.xml
 
 
-        RelativeLayout itemLayout = (RelativeLayout) LayoutInflater.from(mContext).inflate(
-                R.layout.todo_item, parent, false);
+            RelativeLayout itemLayout = (RelativeLayout) LayoutInflater.from(mContext).inflate(
+            R.layout.todo_item, parent, false);
 
-        Log.i(TAG,"After itemLayout");
+            Log.i(TAG,"After itemLayout");
 
 
             // TODO - Fill in specific ToDoItem data
@@ -180,8 +183,8 @@ public class ToDoListAdapter extends BaseAdapter {
 
 
 
-		// Return the View you just created
-		return itemLayout;
+	    // Return the View you just created
+	    return itemLayout;
 
 	}
 }
