@@ -29,6 +29,13 @@ import course.labs.todomanager.ToDoItem.Priority;
 import course.labs.todomanager.ToDoItem.Status;
 import android.widget.Toast;
 
+
+/***
+ * View for creating a new todo activity
+ * creates layout for new todo
+ * fills apprpriate information
+ */
+
 public class AddToDoActivity extends Activity {
 
 	// 7 days in milliseconds - 7 * 24 * 60 * 60 * 1000
@@ -53,7 +60,7 @@ public class AddToDoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-        Intent intent = getIntent();
+                Intent intent = getIntent();
 
 
 		setContentView(R.layout.add_todo);
@@ -71,55 +78,55 @@ public class AddToDoActivity extends Activity {
 
 		setDefaultDateTime();
 
-        ActionBar actionBar = getActionBar();
-        View mActionBarView = getLayoutInflater().inflate(R.layout.action_bar, null);
-        actionBar.setCustomView(mActionBarView);
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+	        ActionBar actionBar = getActionBar();
+	        View mActionBarView = getLayoutInflater().inflate(R.layout.action_bar, null);
+	        actionBar.setCustomView(mActionBarView);
+	        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
-        if(intent.getExtras() != null ) {
-
-            if (intent.getStringExtra(ToDoItem.TITLE) != null)
-                mTitleText.setText(intent.getStringExtra(ToDoItem.TITLE));
-
-
-            if (intent.getExtras().get(ToDoItem.PRIORITY) != null) {
-                Priority priority = (Priority) intent.getExtras().get(ToDoItem.PRIORITY);
-
-                setPriority(priority);
-
-
-            }
-
-
-            if (intent.getExtras().get(ToDoItem.STATUS) != null) {
-                Status status = (Status) intent.getExtras().get(ToDoItem.STATUS);
-
-                setStatus(status);
-              //  mStatusRadioGroup.check(status.ordinal());
-
-            }
-
-            if (intent.getExtras().get(ToDoItem.DATE) != null) {
-
-                Date date = (Date) intent.getExtras().get(ToDoItem.DATE);
-
-                mDate = date;
-
-                Calendar c = Calendar.getInstance();
-                c.setTime(mDate);
-
-                setDateString(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
-                        c.get(Calendar.DAY_OF_MONTH));
-
-                dateView.setText(dateString);
-
-                setTimeString(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),
-                        c.get(Calendar.MILLISECOND));
-
-                timeView.setText(timeString);
-
-            }
-        }
+	        if(intent.getExtras() != null ) {
+	
+	            if (intent.getStringExtra(ToDoItem.TITLE) != null)
+	                mTitleText.setText(intent.getStringExtra(ToDoItem.TITLE));
+	
+	
+	            if (intent.getExtras().get(ToDoItem.PRIORITY) != null) {
+	                Priority priority = (Priority) intent.getExtras().get(ToDoItem.PRIORITY);
+	
+	                setPriority(priority);
+	
+	
+	            }
+	
+	
+	            if (intent.getExtras().get(ToDoItem.STATUS) != null) {
+	                Status status = (Status) intent.getExtras().get(ToDoItem.STATUS);
+	
+	                setStatus(status);
+	              //  mStatusRadioGroup.check(status.ordinal());
+	
+	            }
+	
+	            if (intent.getExtras().get(ToDoItem.DATE) != null) {
+	
+	                Date date = (Date) intent.getExtras().get(ToDoItem.DATE);
+	
+	                mDate = date;
+	
+	                Calendar c = Calendar.getInstance();
+	                c.setTime(mDate);
+	
+	                setDateString(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
+	                        c.get(Calendar.DAY_OF_MONTH));
+	
+	                dateView.setText(dateString);
+	
+	                setTimeString(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),
+	                        c.get(Calendar.MILLISECOND));
+	
+	                timeView.setText(timeString);
+	
+	            }
+	        }
 
 
         //start action mode
@@ -132,7 +139,7 @@ public class AddToDoActivity extends Activity {
 
 
 		//final Button datePickerButton = (Button) findViewById(R.id.date_picker_button);
-        dateView.setOnClickListener(new OnClickListener() {
+        	dateView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -144,7 +151,7 @@ public class AddToDoActivity extends Activity {
 		// show the Time Dialog
 
 		//final Button timePickerButton = (Button) findViewById(R.id.time_picker_button);
-        timeView.setOnClickListener(new OnClickListener() {
+		timeView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
